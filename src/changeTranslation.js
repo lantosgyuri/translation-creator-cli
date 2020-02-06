@@ -11,7 +11,7 @@ const sortObjectByKeys = object => Object.keys(object)
 const getChangeTranslationFunction = keysToBeChanged => {
     const keys = deleteLastElement(makeArrayFromText(keysToBeChanged));
 
-    return (oldTranslationJson, newTranslationText) => {
+    return (newTranslationText, oldTranslationJson = {}) => {
         const newValues = deleteLastElement(makeArrayFromText(newTranslationText));
         const newTranslationsObject = createObjectFromArrays(keys, newValues);
         const oldTranslationObject = JSON.parse(JSON.stringify(oldTranslationJson));
