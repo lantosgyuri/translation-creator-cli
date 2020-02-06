@@ -1,11 +1,29 @@
 const inquirer = require('inquirer');
+const createNewTranslation = require('./src/createNewTranslation');
+const modifyTranslation = require('./src/modifyTranslation');
 
-const questions = [{
-        type: 'confirm',
-        name: 'toBeDelivered',
-        message: 'Is this for delivery?',
-        default: false
-},{
+const CHOICE_NEW_FILE = 'Create new translation json';
+const CHOICE_MODIFY = 'Modify the exiting ones';
+
+const firstQuestion = [{
+        type: 'rawlist',
+        name: 'newFile',
+        message: 'Do you want to create a new Translation file or modify your existing ones',
+        choices: [CHOICE_NEW_FILE, CHOICE_MODIFY]
+},
+];
+
+inquirer.prompt(firstQuestion).then(
+    answers => {
+        if(answers.newFile === CHOICE_NEW_FILE) {
+            createNewTranslation();
+        } else{
+            modifyTranslation();
+        }
+    });
+
+/*
+* {
         type: 'rawlist',
             name: 'beverage',
         message: 'You also get a free 2L beverage',
@@ -38,7 +56,4 @@ const questions = [{
                 value: 'hawaiian'
             }
         ]
-    },
-];
-
-inquirer.prompt(questions).then(answers => console.log(answers));
+    },*/
